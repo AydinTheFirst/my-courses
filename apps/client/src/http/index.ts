@@ -35,7 +35,7 @@ http.handleError = async (error) => {
     localStorage.removeItem("token");
     toast.error("Unauthorized, please login again");
     await sleep(3000);
-    return (window.location.href = "/login");
+    return location.replace(`/login?redirect=${location.pathname}`);
   }
 
   const { errors, message } = error.response.data;

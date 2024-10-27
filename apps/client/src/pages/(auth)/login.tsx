@@ -1,5 +1,6 @@
 import { Button, CardFooter, Divider, Input, Link } from "@nextui-org/react";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { toast } from "sonner";
 
 import { CenteredCard } from "@/components";
@@ -9,6 +10,7 @@ import { sleep } from "@/utils";
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const redirect = new URLSearchParams(useLocation().search).get("redirect");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,7 +23,8 @@ const Login = () => {
       localStorage.setItem("token", res.token);
       toast.success("Başarıyla giriş yaptınız!");
       await sleep(1000);
-      location.replace("/");
+      if (redirect) location.replace(redirect);
+      else location.replace("/");
     } catch (error) {
       http.handleError(error);
     }

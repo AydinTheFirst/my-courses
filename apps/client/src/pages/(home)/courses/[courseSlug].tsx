@@ -7,7 +7,7 @@ import {
   CardHeader,
   Image,
 } from "@nextui-org/react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import useSWR from "swr";
 
@@ -93,7 +93,11 @@ const CourseCard = ({ course }: { course: Course }) => {
           </Button>
         ) : (
           <>
-            <Button color="success">
+            <Button
+              as={Link}
+              color="success"
+              to={`/login?redirect=/courses/${course.slug}`}
+            >
               <strong>Giriş Yap</strong>
             </Button>
             <p>
